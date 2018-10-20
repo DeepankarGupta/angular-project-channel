@@ -10,10 +10,12 @@ import { HomeComponent } from './home/home.component';
 import { ArticlesComponent } from './articles/articles.component';
 import { ArticleListComponent } from './articles/article-list/article-list.component';
 import { ArticleListItemComponent } from './articles/article-list/article-list-item/article-list-item.component';
+import { ArticleDetailsComponent } from './article-details/article-details.component';
 
 const appRoutes: Routes = [
-  { path: '', redirectTo: '/home', pathMatch: 'full'},
-  { path: 'home', component: HomeComponent }
+  { path: '', redirectTo: '/home', pathMatch: 'full' },
+  { path: 'home', component: HomeComponent },
+  { path: 'article/:slug', component: ArticleDetailsComponent } 
 ];
 
 
@@ -24,7 +26,8 @@ const appRoutes: Routes = [
     HomeComponent,
     ArticlesComponent,
     ArticleListComponent,
-    ArticleListItemComponent
+    ArticleListItemComponent,
+    ArticleDetailsComponent
   ],
   imports: [
     BrowserModule,

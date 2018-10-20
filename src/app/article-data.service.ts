@@ -15,10 +15,16 @@ export class ArticleDataService {
   constructor(private http: HttpClient) { }
 
   setFeed(source: string) {
-    
     if(source === "global") {
-      this.http.get(this.baseUrl).subscribe((response:{articles: IArticle[], articlesCount: number}) => this.articles.next(response.articles));
+      this.http.get(this.baseUrl).subscribe(
+        (response:{articles: IArticle[], articlesCount: number}) => {
+          this.articles.next(response.articles)
+        });
     }
+  }
+
+  getArticle(slug: string) {
+    return this.http.get(this.baseUrl + '/' + slug)
   }
 
 

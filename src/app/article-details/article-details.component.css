@@ -1,0 +1,9 @@
+.jumbotron {
+    padding: 2rem 2rem;
+    background-color:#162b5b;
+    color: white;
+}
+
+.title {
+    font-weight: 500;
+}
