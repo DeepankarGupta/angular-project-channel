@@ -1,0 +1,12 @@
+.jumbotron {
+    padding: 2rem 2rem;
+    background-color:#162b5b;
+    color: white;
+}
+
+.display-4 {
+    font-size: 3.5rem;
+    font-weight: 500;
+    line-height: 1.2;
+    font-family: 'Pacifico', cursive;
+} 
