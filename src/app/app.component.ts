@@ -9,6 +9,8 @@ import { IUser } from './models/user';
 })
 export class AppComponent implements OnInit {
 
+  complete: boolean = false;
+
   constructor(private userService: UserService) {
 
   }
@@ -23,6 +25,7 @@ export class AppComponent implements OnInit {
         .subscribe(
           (data: { user: IUser }) => {
             this.userService.setCurrentUser(data.user)
+            this.complete = true; 
           })
     }
   }

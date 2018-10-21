@@ -16,6 +16,7 @@ export class ArticleDetailsComponent implements OnInit {
   article: IArticle
   currentUser: IUser
   isLoggedIn: boolean
+  complete: boolean = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -38,6 +39,7 @@ export class ArticleDetailsComponent implements OnInit {
     this.articleDataService.getArticle(this.slug).subscribe(
       (data: { article: IArticle }) => {
         this.article = data.article
+        this.complete = true;
       });
 
   }

@@ -1,20 +1,22 @@
-<div class="jumbotron jumbotron-fluid">
-  <div class="container header">
-    <h2 class="header-title">{{article.title}}</h2>
-    <div class="header-body">
-      <p>{{ article.author.username }}</p>&nbsp;
-      <div class="btns" *ngIf='article.author.username === currentUser.username'>
-        <button class="btn" [routerLink]="['/editor',article.slug]">Edit</button>&nbsp;
-        <button class="btn btn-danger" (click)="deleteArticle()">Delete</button>
-      </div>
-      <div class="btns" *ngIf='article.author.username !== currentUser.username'>
-        <button class="btn">Follow</button>&nbsp;
-        <button class="btn">Favourite</button>
+<ng-container *ngIf="complete">
+  <div class="jumbotron jumbotron-fluid">
+    <div class="container header">
+      <h2 class="header-title">{{article.title}}</h2>
+      <div class="header-body">
+        <p>{{ article.author.username }}</p>&nbsp;
+        <div class="btns" *ngIf='article.author.username === currentUser.username'>
+          <button class="btn" [routerLink]="['/editor',article.slug]">Edit</button>&nbsp;
+          <button class="btn btn-danger" (click)="deleteArticle()">Delete</button>
+        </div>
+        <div class="btns" *ngIf='article.author.username !== currentUser.username'>
+          <button class="btn">Follow</button>&nbsp;
+          <button class="btn">Favourite</button>
+        </div>
       </div>
     </div>
   </div>
-</div>
 
-<div class="container body text-center">
-  <p>{{ article.body }}</p>
-</div>
+  <div class="container body text-center">
+    <p>{{ article.body }}</p>
+  </div>
+</ng-container>
