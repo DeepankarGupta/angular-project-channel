@@ -13,12 +13,14 @@ import { ArticleListComponent } from './articles/article-list/article-list.compo
 import { ArticleListItemComponent } from './articles/article-list/article-list-item/article-list-item.component';
 import { ArticleDetailsComponent } from './article-details/article-details.component';
 import { SignupComponent } from './signup/signup.component';
+import { SigninComponent } from './signin/signin.component';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
   { path: 'article/:slug', component: ArticleDetailsComponent },
-  { path: 'signup', component: SignupComponent} 
+  { path: 'signup', component: SignupComponent},
+  { path: 'signin', component: SigninComponent}  
 ];
 
 
@@ -31,7 +33,8 @@ const appRoutes: Routes = [
     ArticleListComponent,
     ArticleListItemComponent,
     ArticleDetailsComponent,
-    SignupComponent
+    SignupComponent,
+    SigninComponent
   ],
   imports: [
     BrowserModule,
