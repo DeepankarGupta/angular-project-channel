@@ -1,6 +1,7 @@
 <div class="container">
   <div class="btn-group" role="group">
-    <button type="button" class="btn btn-outline-primary">Global Feed</button>
+    <button type="button" class="btn btn-outline-primary" *ngIf="isLoggedIn" (click)="getFeed('user')">Your Feed</button>
+    <button type="button" class="btn btn-outline-primary" (click)="getFeed('global')">Global Feed</button>
   </div>
   <hr>
   <app-article-list></app-article-list>

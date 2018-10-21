@@ -1,14 +1,14 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light justify-content-between">
   <div class="container">
-    <a class="navbar-brand" routerLink="/home">channel</a>
+    <a class="navbar-brand" routerLink="/">channel</a>
     <div id="navbarNavAltMarkup">
       <div class="navbar-nav">
-        <a class="nav-item nav-link" routerLink="/home">Home</a>
-        <a class="nav-item nav-link" *ngIf="!username" routerLink="/signin">Signin</a>
-        <a class="nav-item nav-link" *ngIf="!username" routerLink="/signup">Signup</a>
-        <a class="nav-item nav-link" *ngIf="username" href="#">New Article</a>
-        <a class="nav-item nav-link" *ngIf="username" href="#">Settings</a>
-        <a class="nav-item nav-link" *ngIf="username" href="#">{{ username }}</a>
+        <a class="nav-item nav-link" routerLink="home">Home</a>
+        <a class="nav-item nav-link" *ngIf="!isLoggedIn" routerLink="/signin">Signin</a>
+        <a class="nav-item nav-link" *ngIf="!isLoggedIn" routerLink="/signup">Signup</a>
+        <a class="nav-item nav-link" *ngIf="isLoggedIn" href="#">New Article</a>
+        <a class="nav-item nav-link" *ngIf="isLoggedIn" href="#">Settings</a>
+        <a class="nav-item nav-link" *ngIf="isLoggedIn" href="#">{{ username }}</a>
       </div>
     </div>
   </div>

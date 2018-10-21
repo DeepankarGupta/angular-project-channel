@@ -10,6 +10,9 @@ import { IUser } from '../models/user';
 export class NavBarComponent implements OnInit {
 
   username: string
+  get isLoggedIn(): boolean {
+    return (localStorage.getItem('JWT')!==null)
+  }
   
   constructor(private userService: UserService) { }
 

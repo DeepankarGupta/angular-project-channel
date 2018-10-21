@@ -1,5 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ArticleDataService } from '../article-data.service';
+import { IUser } from '../models/user';
+import { UserService } from '../user.service';
 
 @Component({
   selector: 'app-articles',
@@ -8,10 +10,24 @@ import { ArticleDataService } from '../article-data.service';
 })
 export class ArticlesComponent implements OnInit {
 
-  constructor(private articleDataService: ArticleDataService) { }
+  get isLoggedIn(): boolean {
+    return (localStorage.getItem('JWT') !== null)
+  }
+
+  constructor(
+    private articleDataService: ArticleDataService,
+  ) { }
 
   ngOnInit() {
-   
+
+  }
+
+  getFeed(source: string) {
+    if (source === "user") {
+      this.articleDataService.setFeed("user");
+    } else if (source === "global") {
+      this.articleDataService.setFeed("global")
+    }
   }
 
 }
