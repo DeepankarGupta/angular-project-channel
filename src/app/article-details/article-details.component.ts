@@ -18,7 +18,8 @@ export class ArticleDetailsComponent implements OnInit {
   article: IArticle
   currentUser: IUser
   isLoggedIn: boolean
-  complete: boolean = false;
+  articlesComplete: boolean = false;
+  commentsComplete: boolean = false;
   comments: IComment[]
 
   constructor(
@@ -43,13 +44,14 @@ export class ArticleDetailsComponent implements OnInit {
     this.articleDataService.getArticle(this.slug).subscribe(
       (data: { article: IArticle }) => {
         this.article = data.article
-        this.complete = true;
+        this.articlesComplete = true;
       });
 
     this.commentsService.getComments(this.slug)
       .subscribe(
-        (data:{comments: IComment[]}) => {
+        (data: { comments: IComment[] }) => {
           this.comments = data.comments
+          this.commentsComplete = true;
         }
       )
 
@@ -62,5 +64,15 @@ export class ArticleDetailsComponent implements OnInit {
         this.router.navigate(['/home'])
       })
   }
+
+  postComment(comment: string) {
+    this.commentsService.createComment(comment, this.slug)
+      .subscribe(
+        (response: { comment: IComment }) => {
+          this.comments.unshift(response.comment)
+        })
+  }
+
+
 
 }
