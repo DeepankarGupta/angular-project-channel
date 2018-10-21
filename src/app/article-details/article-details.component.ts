@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ArticleDataService } from '../article-data.service';
 import { IArticle } from '../models/article';
 import { IUser } from '../models/user';
@@ -20,13 +20,14 @@ export class ArticleDetailsComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private articleDataService: ArticleDataService,
-    private userService: UserService
+    private userService: UserService,
+    private router: Router
   ) { }
 
   ngOnInit() {
 
-    this.isLoggedIn = localStorage.getItem('JWT')!==null ? true:false
-    
+    this.isLoggedIn = localStorage.getItem('JWT') !== null ? true : false
+
     this.userService.currentUser$
       .subscribe(
         (currentUser: IUser) => {
@@ -39,6 +40,14 @@ export class ArticleDetailsComponent implements OnInit {
         this.article = data.article
       });
 
+  }
+
+  deleteArticle() {
+    this.articleDataService.deleteArticle(this.slug)
+      .subscribe((data) => {
+        console.log(data);
+        this.router.navigate(['/home'])
+      })
   }
 
 }

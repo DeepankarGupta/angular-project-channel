@@ -63,6 +63,15 @@ export class ArticleDataService {
     return this.http.put(this.baseUrl + '/' + slug,updateArticleRequest,httpOptions)
   }
 
+  deleteArticle(slug:string){
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'authorization': 'Token '+ localStorage.getItem('JWT')
+      })
+    };
+    return this.http.delete(this.baseUrl + '/' + slug,httpOptions)
+  }
+
 
 
 }
