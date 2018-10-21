@@ -5,17 +5,17 @@ import { HttpClient, HttpHeaders } from '@angular/common/http'
 })
 export class CommentsService {
 
-  baseUrl: string = 'https://conduit.productionready.io/api/articles/';
+  baseUrl: string = 'https://conduit.productionready.io/api/articles';
 
   constructor(private http: HttpClient) { }
 
   getComments(slug: string) {
-    const url = this.baseUrl + slug + '/comments'
+    const url = `${this.baseUrl}/${slug}/comments`
     return this.http.get(url)
   }
 
   createComment(newComment: string, slug: string) {
-    const url = this.baseUrl + slug + '/comments'
+    const url = `${this.baseUrl}/${slug}/comments`
     const newCommentRequest = {
       comment: {
         body: newComment
@@ -28,6 +28,16 @@ export class CommentsService {
       })
     };
     return this.http.post(url, newCommentRequest, httpOptions)
+  }
+
+  deleteComment(slug:string, id:number) {
+    const url = `${this.baseUrl}/${slug}/comments/${id}`
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'authorization': 'Token '+ localStorage.getItem('JWT')
+      })
+    };
+    return this.http.delete(url,httpOptions)
   }
 
 }

@@ -47,6 +47,12 @@ export class ArticleDetailsComponent implements OnInit {
         this.articlesComplete = true;
       });
 
+      this.getComments();
+    
+
+  }
+
+  getComments() {
     this.commentsService.getComments(this.slug)
       .subscribe(
         (data: { comments: IComment[] }) => {
@@ -54,7 +60,6 @@ export class ArticleDetailsComponent implements OnInit {
           this.commentsComplete = true;
         }
       )
-
   }
 
   deleteArticle() {
@@ -73,6 +78,12 @@ export class ArticleDetailsComponent implements OnInit {
         })
   }
 
+  deleteComment(id: number) {
+    this.commentsService.deleteComment(this.slug, id)
+      .subscribe(
+        (response) => this.getComments()
+      );
+  }
 
 
 }
