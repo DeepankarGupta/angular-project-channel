@@ -3,7 +3,8 @@
     <div class="container header">
       <h2 class="header-title">{{article.title}}</h2>
       <div class="header-body">
-        <p>{{ article.author.username }}</p>&nbsp;
+        <br>
+        <p>{{ article.author.username }}</p>
         <div class="btns" *ngIf='article.author.username === currentUser.username'>
           <button class="btn" [routerLink]="['/editor',article.slug]">Edit</button>&nbsp;
           <button class="btn btn-danger" (click)="deleteArticle()">Delete</button>
@@ -16,7 +17,30 @@
     </div>
   </div>
 
-  <div class="container body text-center">
+  <div class="container content">
     <p>{{ article.body }}</p>
   </div>
+
+  <hr>
+
+  <div class="container comments-section text-center">
+    <div *ngIf='isLoggedIn'>
+      <h4>Comments</h4><br>
+      <textarea #commentField cols="70" rows="5" placeholder="Write a comment..."></textarea><br>
+      <button class="btn btn-primary" (click)=postComment(commentField.value)>Post Comment</button>
+    </div>
+    <div *ngIf='!isLoggedIn'>
+      Please <a routerLink="/signin">signin</a> or <a routerLink="/signup">signup</a> to post comments.
+    </div>
+    <div class="comments card w-50 mx-auto text-left" *ngFor="let comment of comments">
+      <div class="card-body">
+        <p class="card-text">{{ comment.body }}</p>
+      </div>
+      <div class="card-footer">
+        <div class="username">{{ comment.author.username }}</div>
+        <button class="btn btn-danger delete-btn" (click)="deleteComment(comment.id)" *ngIf='comment.author.username===currentUser.username'>Delete</button>
+      </div>
+    </div>
+  </div>
+
 </ng-container>

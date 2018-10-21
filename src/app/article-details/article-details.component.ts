@@ -4,6 +4,8 @@ import { ArticleDataService } from '../article-data.service';
 import { IArticle } from '../models/article';
 import { IUser } from '../models/user';
 import { UserService } from '../user.service';
+import { IComment } from '../models/comment';
+import { CommentsService } from '../comments.service';
 
 @Component({
   selector: 'app-article-details',
@@ -17,11 +19,13 @@ export class ArticleDetailsComponent implements OnInit {
   currentUser: IUser
   isLoggedIn: boolean
   complete: boolean = false;
+  comments: IComment[]
 
   constructor(
     private route: ActivatedRoute,
     private articleDataService: ArticleDataService,
     private userService: UserService,
+    private commentsService: CommentsService,
     private router: Router
   ) { }
 
@@ -41,6 +45,13 @@ export class ArticleDetailsComponent implements OnInit {
         this.article = data.article
         this.complete = true;
       });
+
+    this.commentsService.getComments(this.slug)
+      .subscribe(
+        (data:{comments: IComment[]}) => {
+          this.comments = data.comments
+        }
+      )
 
   }
 

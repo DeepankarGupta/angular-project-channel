@@ -4,6 +4,31 @@
     color: white;
 }
 
-.title {
+.header-title {
     font-weight: 500;
+}
+
+.content {
+    margin-bottom: 40px;
+}
+
+.comment {
+    margin-top: 20px;
+}
+
+.comments {
+    margin-top: 20px;
+}
+
+.comments-section {
+  margin: 50px auto;
+}
+
+.card-footer{
+    display: inline-flex;
+    justify-content: space-between;
+}
+
+textarea{
+    padding: 16px;
 }
