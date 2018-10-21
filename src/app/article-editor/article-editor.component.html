@@ -1,0 +1,27 @@
+<div class="container article-form">
+
+  <form [formGroup]="articleForm" (ngSubmit)="onSubmit()">
+    
+    <div class="form-group">
+      <input type="text" formControlName="title" class="form-control" id="articleTitle" placeholder="Article Title">
+    </div>
+
+    <div class="form-group">
+      <input type="text" formControlName="description" class="form-control" id="articleAbout" placeholder="Article Description">
+    </div>
+
+    <div class="form-group">
+      <textarea class="form-control" formControlName='body' id="articleBody" rows="6" placeholder="Write your article (in markdown)"></textarea>
+    </div>
+
+    <div class="form-group">
+      <input type="text" formControlName="tagList" class="form-control" id="articleTags" placeholder="Enter Tags (separated by comma',')">
+    </div>
+
+    <div class="text-center">
+      <input type="submit" class="btn btn-success" value="Publish">
+    </div>
+
+  </form>
+  
+</div>

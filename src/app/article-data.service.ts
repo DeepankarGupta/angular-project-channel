@@ -3,6 +3,7 @@ import { IArticle } from './models/article';
 import { Subject } from 'rxjs';
 import { tap, catchError } from 'rxjs/operators';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { INewArticle } from './models/newArticle';
 
 @Injectable({
   providedIn: 'root'
@@ -37,6 +38,19 @@ export class ArticleDataService {
   getArticle(slug: string) {
     return this.http.get(this.baseUrl + '/' + slug)
   }
+
+  postArticle(newArticle: INewArticle) {
+    let newArticleRequest = {
+      article: newArticle
+    }
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'authorization':  'Token ' + localStorage.getItem('JWT')
+      })
+    };
+    return this.http.post(this.baseUrl,newArticleRequest,httpOptions)
+  }
+
 
 
 }

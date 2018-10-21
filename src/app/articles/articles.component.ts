@@ -1,7 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ArticleDataService } from '../article-data.service';
-import { IUser } from '../models/user';
-import { UserService } from '../user.service';
 
 @Component({
   selector: 'app-articles',

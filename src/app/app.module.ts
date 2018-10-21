@@ -14,13 +14,15 @@ import { ArticleListItemComponent } from './articles/article-list/article-list-i
 import { ArticleDetailsComponent } from './article-details/article-details.component';
 import { SignupComponent } from './signup/signup.component';
 import { SigninComponent } from './signin/signin.component';
+import { ArticleEditorComponent } from './article-editor/article-editor.component';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
   { path: 'article/:slug', component: ArticleDetailsComponent },
   { path: 'signup', component: SignupComponent},
-  { path: 'signin', component: SigninComponent}  
+  { path: 'signin', component: SigninComponent},
+  { path: 'editor', component: ArticleEditorComponent}
 ];
 
 
@@ -34,7 +36,8 @@ const appRoutes: Routes = [
     ArticleListItemComponent,
     ArticleDetailsComponent,
     SignupComponent,
-    SigninComponent
+    SigninComponent,
+    ArticleEditorComponent
   ],
   imports: [
     BrowserModule,

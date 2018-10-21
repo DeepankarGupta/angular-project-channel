@@ -3,10 +3,10 @@
     <a class="navbar-brand" routerLink="/">channel</a>
     <div id="navbarNavAltMarkup">
       <div class="navbar-nav">
-        <a class="nav-item nav-link" routerLink="home">Home</a>
+        <a class="nav-item nav-link" routerLink="/home">Home</a>
         <a class="nav-item nav-link" *ngIf="!isLoggedIn" routerLink="/signin">Signin</a>
         <a class="nav-item nav-link" *ngIf="!isLoggedIn" routerLink="/signup">Signup</a>
-        <a class="nav-item nav-link" *ngIf="isLoggedIn" href="#">New Article</a>
+        <a class="nav-item nav-link" *ngIf="isLoggedIn"  routerLink="/editor">New Article</a>
         <a class="nav-item nav-link" *ngIf="isLoggedIn" href="#">Settings</a>
         <a class="nav-item nav-link" *ngIf="isLoggedIn" href="#">{{ username }}</a>
       </div>
