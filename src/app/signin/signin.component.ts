@@ -50,6 +50,7 @@ export class SigninComponent implements OnInit {
       .subscribe(
         (response: {user: IUser}) => {
           localStorage.setItem('JWT',response.user.token)
+          this.userService.setCurrentUser(response.user)
           this.router.navigate(['/home']);
         },
         (error: HttpErrorResponse) => {
