@@ -15,6 +15,7 @@ import { ArticleDetailsComponent } from './article-details/article-details.compo
 import { SignupComponent } from './signup/signup.component';
 import { SigninComponent } from './signin/signin.component';
 import { ArticleEditorComponent } from './article-editor/article-editor.component';
+import { ProfileComponent } from './profile/profile.component';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -23,7 +24,8 @@ const appRoutes: Routes = [
   { path: 'signup', component: SignupComponent},
   { path: 'signin', component: SigninComponent},
   { path: 'editor', component: ArticleEditorComponent},
-  { path: 'editor/:slug', component: ArticleEditorComponent}
+  { path: 'editor/:slug', component: ArticleEditorComponent},
+  { path: 'profile/:username', component: ProfileComponent}
 ];
 
 
@@ -38,7 +40,8 @@ const appRoutes: Routes = [
     ArticleDetailsComponent,
     SignupComponent,
     SigninComponent,
-    ArticleEditorComponent
+    ArticleEditorComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,

@@ -18,11 +18,11 @@ export class ArticleListComponent implements OnInit, OnDestroy {
     this.sub = this.articleDataService.articleFeed$.subscribe(
       (articles) => {this.articles = articles}
     );
-    if(localStorage.getItem('JWT')!=null) {
-      this.articleDataService.setFeed("user")
-    } else {
-      this.articleDataService.setFeed("global")
-    }
+    // if(localStorage.getItem('JWT')!=null) {
+    //   this.articleDataService.setFeed("user")
+    // } else {
+    //   this.articleDataService.setFeed("global")
+    // }
   }
 
   ngOnDestroy(): void {

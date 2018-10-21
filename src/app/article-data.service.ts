@@ -12,27 +12,40 @@ export class ArticleDataService {
   private articles = new Subject<IArticle[]>();
   articleFeed$ = this.articles.asObservable();
   baseUrl: string = "https://conduit.productionready.io/api/articles";
-  
+
   constructor(private http: HttpClient) { }
 
-  setFeed(source: string) {
-    if(source === "global") {
+  setFeed(source: string, username?: string) {
+    if (source === "global") {
       this.http.get(this.baseUrl).subscribe(
-        (response:{articles: IArticle[], articlesCount: number}) => {
+        (response: { articles: IArticle[], articlesCount: number }) => {
           this.articles.next(response.articles)
         });
-    } else if(source === "user") {
-
+    } else if (source === "user") {
       const httpOptions = {
         headers: new HttpHeaders({
-          'authorization':  'Token ' + localStorage.getItem('JWT')
+          'authorization': 'Token ' + localStorage.getItem('JWT')
         })
       };
-      this.http.get(`${this.baseUrl}/feed`,httpOptions).subscribe(
-        (response:{articles: IArticle[], articlesCount: number}) => {
+      this.http.get(`${this.baseUrl}/feed`, httpOptions).subscribe(
+        (response: { articles: IArticle[], articlesCount: number }) => {
+          this.articles.next(response.articles)
+        });
+    } else if (source === "self") {
+      const url = `${this.baseUrl}?author=${username}`
+      this.http.get(url).subscribe(
+        (response: { articles: IArticle[], articlesCount: number }) => {
+          this.articles.next(response.articles)
+        });
+
+    } else if (source === "favourite") {
+      const url = `${this.baseUrl}?favorited=${username}`
+      this.http.get(url).subscribe(
+        (response: { articles: IArticle[], articlesCount: number }) => {
           this.articles.next(response.articles)
         });
     }
+
   }
 
   getArticle(slug: string) {
@@ -45,31 +58,31 @@ export class ArticleDataService {
     }
     const httpOptions = {
       headers: new HttpHeaders({
-        'authorization':  'Token ' + localStorage.getItem('JWT')
+        'authorization': 'Token ' + localStorage.getItem('JWT')
       })
     };
-    return this.http.post(this.baseUrl,newArticleRequest,httpOptions)
+    return this.http.post(this.baseUrl, newArticleRequest, httpOptions)
   }
 
-  updateArticle(article : INewArticle, slug: string) {
+  updateArticle(article: INewArticle, slug: string) {
     const httpOptions = {
       headers: new HttpHeaders({
-        'authorization': 'Token '+ localStorage.getItem('JWT')
+        'authorization': 'Token ' + localStorage.getItem('JWT')
       })
     };
     const updateArticleRequest = {
       article: article
     }
-    return this.http.put(this.baseUrl + '/' + slug,updateArticleRequest,httpOptions)
+    return this.http.put(this.baseUrl + '/' + slug, updateArticleRequest, httpOptions)
   }
 
-  deleteArticle(slug:string){
+  deleteArticle(slug: string) {
     const httpOptions = {
       headers: new HttpHeaders({
-        'authorization': 'Token '+ localStorage.getItem('JWT')
+        'authorization': 'Token ' + localStorage.getItem('JWT')
       })
     };
-    return this.http.delete(this.baseUrl + '/' + slug,httpOptions)
+    return this.http.delete(this.baseUrl + '/' + slug, httpOptions)
   }
 
 

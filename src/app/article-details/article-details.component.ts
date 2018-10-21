@@ -47,9 +47,15 @@ export class ArticleDetailsComponent implements OnInit {
         this.articlesComplete = true;
       });
 
-      this.getComments();
-    
+    this.getComments();
+  }
 
+  deleteArticle() {
+    this.articleDataService.deleteArticle(this.slug)
+      .subscribe((data) => {
+        console.log(data);
+        this.router.navigate(['/home'])
+      })
   }
 
   getComments() {
@@ -60,14 +66,6 @@ export class ArticleDetailsComponent implements OnInit {
           this.commentsComplete = true;
         }
       )
-  }
-
-  deleteArticle() {
-    this.articleDataService.deleteArticle(this.slug)
-      .subscribe((data) => {
-        console.log(data);
-        this.router.navigate(['/home'])
-      })
   }
 
   postComment(comment: string) {
@@ -84,6 +82,4 @@ export class ArticleDetailsComponent implements OnInit {
         (response) => this.getComments()
       );
   }
-
-
 }
