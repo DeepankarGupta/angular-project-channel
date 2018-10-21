@@ -22,7 +22,8 @@ const appRoutes: Routes = [
   { path: 'article/:slug', component: ArticleDetailsComponent },
   { path: 'signup', component: SignupComponent},
   { path: 'signin', component: SigninComponent},
-  { path: 'editor', component: ArticleEditorComponent}
+  { path: 'editor', component: ArticleEditorComponent},
+  { path: 'editor/:slug', component: ArticleEditorComponent}
 ];
 
 

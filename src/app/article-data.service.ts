@@ -51,6 +51,18 @@ export class ArticleDataService {
     return this.http.post(this.baseUrl,newArticleRequest,httpOptions)
   }
 
+  updateArticle(article : INewArticle, slug: string) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'authorization': 'Token '+ localStorage.getItem('JWT')
+      })
+    };
+    const updateArticleRequest = {
+      article: article
+    }
+    return this.http.put(this.baseUrl + '/' + slug,updateArticleRequest,httpOptions)
+  }
+
 
 
 }

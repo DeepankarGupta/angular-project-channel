@@ -1,5 +1,3 @@
-import { IProfile } from "./profile";
-
 export interface IArticle {
     slug:	        string,
     title:	        string,
@@ -10,5 +8,10 @@ export interface IArticle {
     updatedAt:	    string,
     favorited:	    boolean,
     favoritesCount:	number,
-    author:         IProfile
+    author:         {
+        username:	string,
+        bio:	    string,
+        image:	    string,
+        following:	boolean
+    }
 }

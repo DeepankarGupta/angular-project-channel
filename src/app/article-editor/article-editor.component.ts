@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '../../../node_modules/@angular/forms';
 import { ArticleDataService } from '../article-data.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
+import { IArticle } from '../models/article';
 
 @Component({
   selector: 'app-article-editor',
@@ -11,11 +12,13 @@ import { Router } from '@angular/router';
 export class ArticleEditorComponent implements OnInit {
 
   articleForm: FormGroup
+  slug: string
 
   constructor(
     private formBuilder: FormBuilder,
     private articleDataService: ArticleDataService,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
   ) {
     this.articleForm = this.formBuilder.group({
       title: ['', Validators.compose([Validators.required])],
@@ -27,15 +30,40 @@ export class ArticleEditorComponent implements OnInit {
 
   ngOnInit() {
 
+    this.slug = this.route.snapshot.paramMap.get('slug')
+
+    if (this.slug != null) {
+      this.articleDataService.getArticle(this.slug).subscribe(
+        (data: { article: IArticle }) => {
+          this.articleForm.setValue(
+            {
+              title: data.article.title,
+              description: data.article.description,
+              body: data.article.body,
+              tagList: data.article.tagList
+            })
+        });
+    }
+
   }
 
   onSubmit() {
-    this.articleDataService.postArticle(this.articleForm.value)
-      .subscribe(
-        (data) => {
-          console.log(data);
-          this.router.navigate(['/home'])
-        });
+    
+    if (this.slug == null) {
+      this.articleDataService.postArticle(this.articleForm.value)
+        .subscribe(
+          (data) => {
+            console.log(data);
+            this.router.navigate(['/home'])
+          });
+    } else {
+      this.articleDataService.updateArticle(this.articleForm.value, this.slug)
+        .subscribe(
+          (data) => {
+            console.log(data);
+            this.router.navigate(['/home'])
+          });
+    }
   }
 
 }
