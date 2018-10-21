@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 
 import { HttpClientModule } from '@angular/common/http'
 import { RouterModule, Routes } from '@angular/router';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
@@ -11,11 +12,13 @@ import { ArticlesComponent } from './articles/articles.component';
 import { ArticleListComponent } from './articles/article-list/article-list.component';
 import { ArticleListItemComponent } from './articles/article-list/article-list-item/article-list-item.component';
 import { ArticleDetailsComponent } from './article-details/article-details.component';
+import { SignupComponent } from './signup/signup.component';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
-  { path: 'article/:slug', component: ArticleDetailsComponent } 
+  { path: 'article/:slug', component: ArticleDetailsComponent },
+  { path: 'signup', component: SignupComponent} 
 ];
 
 
@@ -27,12 +30,14 @@ const appRoutes: Routes = [
     ArticlesComponent,
     ArticleListComponent,
     ArticleListItemComponent,
-    ArticleDetailsComponent
+    ArticleDetailsComponent,
+    SignupComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
-    RouterModule.forRoot(appRoutes)
+    RouterModule.forRoot(appRoutes),
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
