@@ -16,37 +16,45 @@ export class ArticleDataService {
   constructor(private http: HttpClient) { }
 
   setFeed(source: string, username?: string, tag?: string) {
-    if (source === "global") {
-      this.http.get(this.baseUrl).subscribe(
-        (response: { articles: IArticle[], articlesCount: number }) => {
-          this.articles.next(response.articles)
-        });
-    } else if (source === "user") {
-      const httpOptions = {
+    
+    let httpOptions = {
+      headers: new HttpHeaders({
+      })
+    };
+    if(localStorage.getItem('JWT') != null) {
+        httpOptions = {
         headers: new HttpHeaders({
           'authorization': 'Token ' + localStorage.getItem('JWT')
         })
       };
+    }
+    
+    if (source === "global") {
+      this.http.get(this.baseUrl,httpOptions).subscribe(
+        (response: { articles: IArticle[], articlesCount: number }) => {
+          this.articles.next(response.articles)
+        });
+    } else if (source === "user") {
       this.http.get(`${this.baseUrl}/feed`, httpOptions).subscribe(
         (response: { articles: IArticle[], articlesCount: number }) => {
           this.articles.next(response.articles)
         });
     } else if (source === "self") {
       const url = `${this.baseUrl}?author=${username}`
-      this.http.get(url).subscribe(
+      this.http.get(url, httpOptions).subscribe(
         (response: { articles: IArticle[], articlesCount: number }) => {
           this.articles.next(response.articles)
         });
 
     } else if (source === "favourite") {
       const url = `${this.baseUrl}?favorited=${username}`
-      this.http.get(url).subscribe(
+      this.http.get(url, httpOptions).subscribe(
         (response: { articles: IArticle[], articlesCount: number }) => {
           this.articles.next(response.articles)
         });
     } else if(source === "tag") {
       const url = `${this.baseUrl}?tag=${tag}`
-      this.http.get(url).subscribe(
+      this.http.get(url, httpOptions).subscribe(
         (response: { articles: IArticle[], articlesCount: number }) => {
           this.articles.next(response.articles)
         });
@@ -95,11 +103,20 @@ export class ArticleDataService {
     const url = `${this.baseUrl}/${slug}/favorite`
     const httpOptions = {
       headers: new HttpHeaders({
-        'Content-Type':  'application/json',
         'authorization': 'Token ' + localStorage.getItem('JWT')
       })
     };
-    return this.http.post(url,httpOptions)
+    return this.http.post(url,null,httpOptions)
+  }
+
+  setAsUnfavourite(slug: string) {
+    const url = `${this.baseUrl}/${slug}/favorite`
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'authorization': 'Token ' + localStorage.getItem('JWT')
+      })
+    };
+    return this.http.delete(url,httpOptions)
   }
 
 }

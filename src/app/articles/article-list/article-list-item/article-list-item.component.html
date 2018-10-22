@@ -3,6 +3,10 @@
     <h5 class="card-title">{{ article.title }}</h5>
     <p class="card-text">{{ article.body }}</p>
     <p class="card-text">- {{ article.author.username }}</p>
-    <a [routerLink]="['/article',article.slug]" class="card-link" >Read more</a>
+    <div class="btns">
+      <a [routerLink]="['/article',article.slug]" class="card-link">Read more</a>
+      <button *ngIf="!article.favorited" type="button" class="btn btn-outline-danger" (click)="setAsFavourite()">Favorite {{ article.favoritesCount }}</button>
+      <button *ngIf="article.favorited" type="button" class="btn btn-danger" (click)="setAsUnfavourite()">Unfavorite {{ article.favoritesCount }}</button>
+    </div>
   </div>
 </div>
