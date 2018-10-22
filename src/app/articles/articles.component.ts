@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ArticleDataService } from '../article-data.service';
 import { ActivatedRoute } from '@angular/router';
+import { TagsService } from '../tags.service';
 
 @Component({
   selector: 'app-articles',
@@ -13,14 +14,21 @@ export class ArticlesComponent implements OnInit {
   get isLoggedIn(): boolean {
     return (localStorage.getItem('JWT') !== null)
   }
+  currentTag: string
 
   constructor(
     private route: ActivatedRoute,
-    private articleDataService: ArticleDataService
+    private articleDataService: ArticleDataService,
+    private tagService: TagsService
   ) { }
 
   ngOnInit() {
-     if (this.parent == "home" && localStorage.getItem('JWT') !== null) {
+    this.tagService.currentTag$
+      .subscribe(
+        (tag) => {
+          this.currentTag = tag
+        });
+    if (this.parent == "home" && localStorage.getItem('JWT') !== null) {
       this.articleDataService.setFeed("user");
     } else if (this.parent == "home") {
       this.articleDataService.setFeed("global")
@@ -32,6 +40,7 @@ export class ArticlesComponent implements OnInit {
 
   getFeed(source: string) {
     let username = this.route.snapshot.paramMap.get('username')
+    this.tagService.setCurrentTag(null)
     this.articleDataService.setFeed(source, username)
   }
 

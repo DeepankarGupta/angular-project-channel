@@ -15,7 +15,7 @@ export class ArticleDataService {
 
   constructor(private http: HttpClient) { }
 
-  setFeed(source: string, username?: string) {
+  setFeed(source: string, username?: string, tag?: string) {
     if (source === "global") {
       this.http.get(this.baseUrl).subscribe(
         (response: { articles: IArticle[], articlesCount: number }) => {
@@ -40,6 +40,12 @@ export class ArticleDataService {
 
     } else if (source === "favourite") {
       const url = `${this.baseUrl}?favorited=${username}`
+      this.http.get(url).subscribe(
+        (response: { articles: IArticle[], articlesCount: number }) => {
+          this.articles.next(response.articles)
+        });
+    } else if(source === "tag") {
+      const url = `${this.baseUrl}?tag=${tag}`
       this.http.get(url).subscribe(
         (response: { articles: IArticle[], articlesCount: number }) => {
           this.articles.next(response.articles)
@@ -85,7 +91,16 @@ export class ArticleDataService {
     return this.http.delete(this.baseUrl + '/' + slug, httpOptions)
   }
 
-
+  setAsFavourite(slug: string) {
+    const url = `${this.baseUrl}/${slug}/favorite`
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+        'authorization': 'Token ' + localStorage.getItem('JWT')
+      })
+    };
+    return this.http.post(url,httpOptions)
+  }
 
 }
 

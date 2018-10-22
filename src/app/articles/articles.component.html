@@ -2,6 +2,7 @@
   <div *ngIf="parent==='home'" class="btn-group" role="group">
     <button type="button" class="btn btn-outline-primary" *ngIf="isLoggedIn" (click)="getFeed('user')">Your Feed</button>
     <button type="button" class="btn btn-outline-primary" (click)="getFeed('global')">Global Feed</button>
+    <button type="button" class="btn btn-outline-primary" *ngIf="currentTag">{{ currentTag }}</button>
   </div>
   <div *ngIf="parent==='profile'" class="btn-group" role="group">
     <button type="button" class="btn btn-outline-primary" (click)="getFeed('self')">My Articles</button>
