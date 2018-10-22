@@ -17,11 +17,11 @@ export class NavBarComponent implements OnInit {
   constructor(private userService: UserService) { }
 
   ngOnInit() {
-    this.userService.currentUser$
-    .subscribe(
-      (user:IUser) => {
-        this.username = user.username;
-      })
-  }
+      this.userService.currentUser$
+      .subscribe(
+        (user:IUser) => {
+          this.username = user.username;
+        })
+    }
 
 }

@@ -12,7 +12,7 @@ export class UserService {
 
   baseUrl: string = "https://conduit.productionready.io/api/users";
   currentUserUrl: string = "https://conduit.productionready.io/api/user";
-  private currentUser = new BehaviorSubject<IUser>(undefined);
+  private currentUser = new BehaviorSubject<IUser>(null);
   currentUser$ = this.currentUser.asObservable();
 
   constructor(private http: HttpClient) { }

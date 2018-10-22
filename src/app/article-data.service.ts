@@ -4,59 +4,57 @@ import { Subject } from 'rxjs';
 import { tap, catchError } from 'rxjs/operators';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { INewArticle } from './models/newArticle';
+import { IArticlesResponse } from './models/articlesResponse';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ArticleDataService {
-  private articles = new Subject<IArticle[]>();
+  private articles = new Subject<IArticlesResponse>();
   articleFeed$ = this.articles.asObservable();
   baseUrl: string = "https://conduit.productionready.io/api/articles";
 
   constructor(private http: HttpClient) { }
 
   setFeed(source: string, username?: string, tag?: string) {
-    
-    let httpOptions = {
-      headers: new HttpHeaders({
-      })
-    };
-    if(localStorage.getItem('JWT') != null) {
-        httpOptions = {
+
+    let httpOptions = {};
+    if (localStorage.getItem('JWT') != null) {
+      httpOptions = {
         headers: new HttpHeaders({
           'authorization': 'Token ' + localStorage.getItem('JWT')
         })
       };
     }
-    
+
     if (source === "global") {
-      this.http.get(this.baseUrl,httpOptions).subscribe(
-        (response: { articles: IArticle[], articlesCount: number }) => {
-          this.articles.next(response.articles)
+      this.http.get(this.baseUrl, httpOptions).subscribe(
+        (response: IArticlesResponse) => {
+          this.articles.next(response)
         });
     } else if (source === "user") {
       this.http.get(`${this.baseUrl}/feed`, httpOptions).subscribe(
         (response: { articles: IArticle[], articlesCount: number }) => {
-          this.articles.next(response.articles)
+          this.articles.next(response)
         });
     } else if (source === "self") {
       const url = `${this.baseUrl}?author=${username}`
       this.http.get(url, httpOptions).subscribe(
         (response: { articles: IArticle[], articlesCount: number }) => {
-          this.articles.next(response.articles)
+          this.articles.next(response)
         });
 
     } else if (source === "favourite") {
       const url = `${this.baseUrl}?favorited=${username}`
       this.http.get(url, httpOptions).subscribe(
         (response: { articles: IArticle[], articlesCount: number }) => {
-          this.articles.next(response.articles)
+          this.articles.next(response)
         });
-    } else if(source === "tag") {
+    } else if (source === "tag") {
       const url = `${this.baseUrl}?tag=${tag}`
       this.http.get(url, httpOptions).subscribe(
         (response: { articles: IArticle[], articlesCount: number }) => {
-          this.articles.next(response.articles)
+          this.articles.next(response)
         });
     }
 
@@ -106,7 +104,7 @@ export class ArticleDataService {
         'authorization': 'Token ' + localStorage.getItem('JWT')
       })
     };
-    return this.http.post(url,null,httpOptions)
+    return this.http.post(url, null, httpOptions)
   }
 
   setAsUnfavourite(slug: string) {
@@ -116,7 +114,7 @@ export class ArticleDataService {
         'authorization': 'Token ' + localStorage.getItem('JWT')
       })
     };
-    return this.http.delete(url,httpOptions)
+    return this.http.delete(url, httpOptions)
   }
 
 }

@@ -28,7 +28,6 @@ export class AppComponent implements OnInit {
             this.complete = true;
           })
     } else {
-      this.userService.setCurrentUser(null)
       this.complete = true;
     }
   }

@@ -10,13 +10,17 @@ import { Subscription } from 'rxjs';
 })
 export class ArticleListComponent implements OnInit, OnDestroy {
   articles: IArticle[]
+  totalArticles: number
   sub : Subscription
 
   constructor(private articleDataService: ArticleDataService) { }
 
   ngOnInit() {
     this.sub = this.articleDataService.articleFeed$.subscribe(
-      (articles) => {this.articles = articles}
+      (articlesResponse) => {
+        this.articles = articlesResponse.articles
+        this.totalArticles = articlesResponse.articlesCount
+      }
     );
     // if(localStorage.getItem('JWT')!=null) {
     //   this.articleDataService.setFeed("user")
